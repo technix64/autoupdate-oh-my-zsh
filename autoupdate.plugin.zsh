@@ -33,7 +33,7 @@ fi
 
 function upgrade_oh_my_zsh_custom() {
   if [[ -z "$ZSH_CUSTOM_AUTOUPDATE_QUIET" ]]; then
-    printf "${BLUE}%s${NORMAL}\n" "Upgrading custom plugins"
+    printf "\033[1;38;5;154m%s${NORMAL}\n" "Upgrading custom plugins"
   fi
 
   find -L "${ZSH_CUSTOM}" -type d -name .git | while read d
@@ -44,15 +44,17 @@ function upgrade_oh_my_zsh_custom() {
     pt=$(basename ${pt:0:((${#pt} - 1))})
     pushd -q "${p}"
 
+    printf "\033[1;38;5;183m"
     if git pull --rebase --stat
     then
-      printf "${BLUE}%s${NORMAL}\n" "Hooray! the $pn $pt has been updated and/or is at the current version."
+      printf "\033[1;38;5;117m%s${NORMAL}\n" "Hooray! the $pn $pt has been updated and/or is at the current version."
     else
-      printf "${RED}%s${NORMAL}\n" "There was an error updating the $pn $pt. Try again later?"
+      printf "\033[1;38;5;180m%s${NORMAL}\n" "There was an error updating the $pn $pt. Try again later?"
     fi
 
     popd &>/dev/null
   done
+  source ~/.oh-my-zsh/custom/ansi/ansi-omzcust.zsh
 }
 
 alias upgrade_ohl_my_zsh='omz update && upgrade_oh_my_zsh_custom'
